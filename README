@@ -1,0 +1,4 @@
+Dofus Treasury is a web application about items and recipes in the
+MMORPG Dofus. It contains a list of items and recipes, can show their
+associations, and a user can enter an inventory and craft with recipes
+to see remaining items in the inventory.

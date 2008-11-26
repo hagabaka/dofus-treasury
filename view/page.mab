@@ -1,0 +1,25 @@
+html do
+  head do
+    link :rel=>'stylesheet', :type=>'text/css', :href=>'/style.css'
+    title "#@title - Dofus Treasury"
+  end
+
+  body do
+    h1 'Dofus Treasury'
+    ul.nav! do
+      @pages.each do |p|
+        li do
+          a p[:name], :href => p[:location],
+                      :class => (p[:name] == @current_page ? 'current' : '')
+        end
+      end
+    end
+
+    self << @content
+
+  end
+end
+
+# vim: syntax=ruby
+
+

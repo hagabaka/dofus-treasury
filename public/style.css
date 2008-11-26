@@ -1,0 +1,30 @@
+#nav ul {
+  list-style-type: none;
+}
+
+#nav li {
+  margin: 10;
+  display: inline;
+}
+
+#nav a {
+  border-style: none solid solid none;
+  border-width: medium thin medium thin;
+  border-color: orange;
+  padding: 10px;
+  color: red;
+  text-decoration: none;
+}
+
+#nav a:hover {
+  background-color: greenyellow;
+  border-style: none solid solid none;
+  border-width: thick medium thick medium;
+}
+
+#nav a.current {
+  background-color: gold;
+  font-weight: bold;
+  border-style: solid solid solid solid;
+  border-width: thick thin thin medium;
+}

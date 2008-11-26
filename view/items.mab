@@ -1,0 +1,7 @@
+ul do
+  @items.each do |item|
+    li { a item.name, :href => "item/#{item.name}" }
+  end
+end
+
+# vim: syntax=ruby
