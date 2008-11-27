@@ -4,8 +4,7 @@ require 'ramaze'
 require "#{__DIR__}/models"
 
 class MainController < Ramaze::Controller
-  helper :markaby
-  engine :Markaby
+  engine :Haml
 
   helper :aspect
 
@@ -26,15 +25,11 @@ class MainController < Ramaze::Controller
 
   page 'index', '/'
   page('items') {@items = Item.all}
-  page 'recipes'
+  page('recipes') {@recipes = Recipe.all}
   page 'inventory'
 
   def item(name)
-    @item = Item.named(name)
-  end
-
-  def recipe
-
+    @item = Item.get!(name)
   end
 
   def notemplate
@@ -42,6 +37,15 @@ class MainController < Ramaze::Controller
   end
 
   before {@pages = PAGES}
+
+  private
+  def render_item(item)
+    render_template 'item-element.haml', :item => item
+  end
+
+  def render_recipes(recipes)
+    render_template 'recipes-element.haml', :recipes => recipes
+  end
 end
 
 Ramaze.start

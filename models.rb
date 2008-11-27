@@ -18,13 +18,14 @@ DataMapper.setup :default,
 class Item
   include DataMapper::Resource
 
-  property :name, String, :key => true
-  has n, :dosages
+  property      :name,                  String, :key => true
+  has n,        :dosages
 
-  belongs_to :producing_recipes, :class_name => 'Recipe',
-             :remote_name => :product
-  has n, :consuming_recipes, :class_name => 'Recipe', :through => :dosages,
-         :remote_relationship_name => :recipe
+  has n,        :producing_recipes,     :class_name => 'Recipe',
+                                        :child_key => [:product_name]
+  has n,        :consuming_recipes,     :class_name => 'Recipe',
+                                        :through => :dosages,
+                                        :remote_relationship_name => :recipe
 
   def self.named(name)
     first_or_create(:name => name)
@@ -34,22 +35,24 @@ end
 class Dosage
   include DataMapper::Resource
 
-  property :quantity, Integer
-  property :item_name, String, :key => true
-  property :recipe_id, Integer, :key => true
+  property     :quantity,               Integer
+  property     :item_name,              String, :key => true
+  property     :recipe_id,              Integer, :key => true
 
-  belongs_to :item
-  belongs_to :recipe
+  belongs_to   :item
+  belongs_to   :recipe
 end
 
 class Recipe
   include DataMapper::Resource
 
-  property :id, Serial
-  has 1, :product, :class_name => 'Item'
-  has n, :dosages
-  has n, :ingredients, :class_name => 'Item', :through => :dosages,
-         :remote_relationship_name => :item
+  property      :id,                    Serial
+  belongs_to    :product,               :class_name => 'Item',
+                                        :child_key => [:product_name]
+  has n,        :dosages
+  has n,        :ingredients,           :class_name => 'Item',
+                                        :through => :dosages,
+                                        :remote_relationship_name => :item
 
   # return recipe with the given product and ingredient/quantities,
   # creating if not existing

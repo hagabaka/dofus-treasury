@@ -1,13 +1,32 @@
-#nav ul {
-  list-style-type: none;
+body {
+  font: sans-serif 1em;
 }
 
-#nav li {
-  margin: 10;
+h1 {
+  font: fantasy 3em;
+  color: darkgreen;
+}
+
+#nav {
+  list-style-type: none;
+  display: inline;
+  margin-bottom: 1em;
+}
+
+#nav > li {
+  display: inline;
+  border-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
   display: inline;
 }
 
-#nav a {
+#nav a, h2 {
+  margin: 3px;
+  font-size: 1.3em;
   border-style: none solid solid none;
   border-width: medium thin medium thin;
   border-color: orange;
@@ -22,9 +41,64 @@
   border-width: thick medium thick medium;
 }
 
-#nav a.current {
+#nav a.current, h2 {
   background-color: gold;
   font-weight: bold;
   border-style: solid solid solid solid;
   border-width: thick thin thin medium;
 }
+
+h3 {
+  color: darkgreen;
+  padding-top: 1em;
+  border-bottom: orange thin solid;
+}
+
+ul {
+  list-style-type: none;
+  margin: 1em 0 1em 0;
+  padding: 0;
+  text-indent: 0;
+}
+
+li {
+  border-left-style: solid;
+  padding-left: 10px;
+  margin: 3px;
+  border-left-width: 1em;
+  border-color: orange;
+  text-indent: 0;
+}
+
+ul.items > li {
+  float: left;
+  width: 20%;
+}
+
+ul.items:after {
+  clear: left;
+}
+
+dl.recipes > dt {
+  clear: both;
+  width: 11%;
+  float: left;
+  text-align: right;
+  border-right: solid orange thin;
+  padding-right: 6px;
+  margin: 3px 0;
+}
+
+dl.recipes > dd {
+  float: left;
+  width: 10%;
+  text-indent: 0;
+  margin: 3px 0;
+  padding: 0 4px 0 4px;
+  border-right: dotted orange thin;
+}
+
+dl.recipes + * {
+  clear: both;
+}
+
