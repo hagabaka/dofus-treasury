@@ -1,0 +1,14 @@
+!!!
+%html
+  %head
+    %link{:rel=>'stylesheet', :type=>'text/css', :href=>'/style.css'}/
+    %title== #{@title} - Dofus Treasury
+
+  %body
+    %h1 Dofus Treasury
+    %ul#nav
+      - @pages.each do |p|
+        %li
+          %a{:href => p[:location], :class => (p[:name] == @current_page ? 'current' : '')}= p[:name]
+    = @content
+

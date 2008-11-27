@@ -1,0 +1,8 @@
+%h2= @item.name
+
+%h3 Made from recipes
+= render_recipes @item.producing_recipes
+
+%h3 Used in recipes
+= render_recipes @item.consuming_recipes
+

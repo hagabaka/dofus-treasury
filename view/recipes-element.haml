@@ -1,0 +1,6 @@
+%dl.recipes
+  - recipes.each do |recipe|
+    %dt= render_item recipe.product
+    - recipe.dosages.each do |dosage|
+      %dd== #{dosage.quantity} #{render_item dosage.item}
+
