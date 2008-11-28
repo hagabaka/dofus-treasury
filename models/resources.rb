@@ -27,20 +27,33 @@ class Item
                                         :through => :dosages,
                                         :remote_relationship_name => :recipe
 
-  def self.named(name)
-    first_or_create(:name => name)
+  def derivatives
+    consuming_recipes.map(&:product)
   end
+
+  # has n,        :derivatives,           :class_name => 'Item',
+  #                                      :through => :consuming_recipes,
+  #                                      :remote_relationship_name => :product
+  has n,        :materials,             :class_name => 'Item',
+                                        :through => :producing_recipes,
+                                        :remote_relationship_name =>
+                                                :ingredients,
+                                        :child_key => [:product_name]
 end
 
-class Dosage
+class Stack
   include DataMapper::Resource
+  property      :id,                    Serial
+  property      :type,                  Discriminator
+  property      :quantity,              Integer
+  property      :item_name,             String
 
-  property     :quantity,               Integer
-  property     :item_name,              String, :key => true
-  property     :recipe_id,              Integer, :key => true
+  belongs_to    :item
+end
 
-  belongs_to   :item
-  belongs_to   :recipe
+class Dosage < Stack
+  property      :recipe_id,             Integer
+  belongs_to    :recipe
 end
 
 class Recipe
@@ -53,33 +66,27 @@ class Recipe
   has n,        :ingredients,           :class_name => 'Item',
                                         :through => :dosages,
                                         :remote_relationship_name => :item
+end
 
-  # return recipe with the given product and ingredient/quantities,
-  # creating if not existing
-  #
-  # Recipe.defined( Item.named('Bread'),
-  #                 Item.named('Flour') => 2,
-  #                 Item.named('Yeast') => 1,
-  #                 Item.named('Water') => 1 )
-  def self.defined(product, ingredients_and_quantities)
-# FIXME the current implementation does not check for existing recipes with
-#       the given product, ingredients and quantities; instead it assumes
-#       that recipes are unique by product
-#    first(:product => product,
-#          :ingredients => ingredienst_and_quantities.keys,
-#          :dosages.all? {|d| ingredients_and_quantities[d.item] == d.quantity}
-#          # how to translate to query?
-#         ) \
-    (product.producing_recipes || []).first or
-    begin
-      r = Recipe.new
-      r.product = product
-      ingredients_and_quantities.each_pair do |ingredient, quantity|
-        r.dosages << Dosage.new(:quantity => quantity, :item => ingredient)
-      end
-      r
-    end
-  end
+class Identity
+  include DataMapper::Resource
+
+  property      :url,                   String, :key => true
+  has 1,        :inventory
+  has n,        :items,                 :through => :inventory
+end
+
+class Inventory
+  include DataMapper::Resource
+
+  property      :id,                    Serial
+  has n,        :containments
+  belongs_to    :identity
+end
+
+class Containment < Stack
+  property      :inventory_id,          Integer
+  belongs_to    :inventory
 end
 
 DataMapper.auto_upgrade!

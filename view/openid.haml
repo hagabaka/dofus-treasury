@@ -1,0 +1,6 @@
+- if session[:openid_identity]
+  %h1= flash[:success]
+  %p== You are logged in as #{session[:openid_identity]}
+- else
+  = openid_login_form
+

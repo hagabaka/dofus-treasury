@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+  <head>
+    <title>Index - Dofus Treasury</title>
+    <link href='/style.css' rel='stylesheet' type='text/css' />
+    
+  </head>
+  <body>
+    <h1>Dofus Treasury</h1>
+    <ul id='nav'>
+      <li>
+        <a class='current' href='/'>index</a>
+      </li>
+      <li>
+        <a href='/items'>items</a>
+      </li>
+      <li>
+        <a href='/recipes'>recipes</a>
+      </li>
+      <li>
+        <a href='/inventory'>inventory</a>
+      </li>
+    </ul>
+    <div class='flash' id='flash_error'>You need to login to access inventory</div>
+    <!-- content -->
+    <p>Welcome to Dofus Treasury!</p>
+    <form action='/openid_begin' class='openid' method='get'>
+      <dl>
+        <dt class='label'>
+          <a href='http://openid.net'>OpenID</a>
+          URL:
+        </dt>
+        <dd>
+          <input name='url' type='text' />
+        </dd>
+      </dl>
+      <input type='submit' value='login' />
+    </form>
+  </body>
+</html>

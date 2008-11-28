@@ -6,3 +6,26 @@
 %h3 Used in recipes
 = render_recipes @item.consuming_recipes
 
+- %w[derivatives materials].each do |direction|
+  %h3= direction.title_case
+  %ul.itemtree{:id => "itemtree_#{direction}"}
+    - tree_traverse_item(@item, direction) do |item|
+      - case item
+      - when :begin_children
+        <li>
+        <ul>
+      - when :end_children
+        </ul>
+        </li>
+      - else
+        %li= render_item(item)
+
+= load_script '/jquery.js'
+= load_script '/jquery.treeview.js'
+
+:javascript
+  $(document).ready(function() {
+    $('#itemtree_derivatives').treeview();
+    $('#itemtree_materials').treeview();
+  });
+ 

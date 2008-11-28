@@ -1,1 +1,36 @@
-# vim: syntax=ruby
+%ul.items
+  - session[:inventory].containments.each do |containment|
+    %li
+      %span.edit.quantity{:id => containment.item.name}
+        = containment.quantity
+      = render_item containment.item
+
+%h3 Add item
+%form
+  %dt.label Item
+  %dd
+    %input#itemname{:type => 'text', :name => 'item'}
+  %dt.label Quantity
+  %dd
+    %input{:type => 'text', :name => 'quantity'}
+  %input{:type => 'submit', :action => '/inventory/edit/'}
+
+= load_script '/jquery.js'
+= load_script '/jquery.jeditable.js'
+= load_script '/jquery.autocomplete.js'
+
+:javascript
+  $(document).ready(function() {
+    $('.edit').editable('/inventory', {
+      tooltip: 'click to edit',
+      id: 'item',
+      name: 'quantity',
+      cssclass: 'inlineedit',
+      submitdata: {ajax: 'yes'}
+    });
+
+    $('#itemname').autocomplete('/complete_item_name', {
+      matchCase: 1
+    });
+  });
+

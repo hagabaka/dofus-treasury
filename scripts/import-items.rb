@@ -12,7 +12,8 @@
 #
 # Example input files are in doc/examples
 
-require 'models'
+require 'ramaze'
+acquire 'models/*'
 
 ARGF.each_line do |line|
   line.strip

@@ -1,14 +1,33 @@
-!!!
+!!! Strict
 %html
   %head
-    %link{:rel=>'stylesheet', :type=>'text/css', :href=>'/style.css'}/
     %title== #{@title} - Dofus Treasury
-
+    = load_stylesheet '/style.css'
+    = render_template "#{@action}-head.haml"
   %body
     %h1 Dofus Treasury
     %ul#nav
       - @pages.each do |p|
         %li
-          %a{:href => p[:location], :class => (p[:name] == @current_page ? 'current' : '')}= p[:name]
+          %a{:class => ('current' if p[:name] == @current_page),       | 
+          :href => p[:location]}= p[:name]                             |
+    = flashbox
+    / content
     = @content
+
+    - if session[:openid_identity]
+      %p.openid
+        Logged in as 
+        %a.openid{:href => session[:openid_identity]}
+          = session[:openid_identity]
+        %a.logout{:href => '/logout'} Logout
+    - else
+      %form.openid{:method=>'get', :action=>'/openid_begin'}
+        %dl
+          %dt.label 
+            %a{:href=>'http://openid.net'} OpenID
+            URL:
+          %dd 
+            %input{:type=>'text', :name=>'url'}/
+        %input{:type=>'submit', :value=>'login'}/
 

@@ -1,16 +1,70 @@
-body {
-  font: sans-serif 1em;
+html, body, p, a, div, li, dd, dt {
+  font-size: 12px;
+}
+
+form.openid, p.openid {
+  position: absolute;
+  margin: 0;
+  right: 0;
+  top: 0;
+  border: thin orange;
+  border-style: none none solid solid;
+  background-color: yellow;
+  padding: 3px;
+}
+
+form > dl, form > dl > dt.label, form > dl > dt.label + dd {
+  text-indent: 0;
+  padding: 3px;
+  margin: 0;
+  display: inline;
+}
+
+form.inlineedit {
+  display: inline-block;
+  padding: 0;
+  margin: 0;
+}
+
+p.openid > a.logout {
+  padding: 0 3px;
+  border-left: thin orange solid;
+}
+
+div.flash {
+ padding: 3px;
+ margin: 0;
+ position: absolute;
+ bottom: 0;
+ left: 0;
+ border-style: solid solid none none;
+ border-width: thin;
+}
+
+div#flash_error {
+  border-color: red;
+  background: pink;
+  color: red;
+}
+
+div#flash_success {
+  border-color: green;
+  background: lime;
+  color: green;
 }
 
 h1 {
-  font: fantasy 3em;
+  font-family: fantasy;
   color: darkgreen;
 }
 
 #nav {
   list-style-type: none;
-  display: inline;
-  margin-bottom: 1em;
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-left: 0;
+  padding-left: 0;
+  text-indent: 0;
 }
 
 #nav > li {
@@ -18,6 +72,7 @@ h1 {
   border-style: none;
   margin: 0;
   padding: 0;
+  text-indent: 0;
 }
 
 h2 {
@@ -26,7 +81,7 @@ h2 {
 
 #nav a, h2 {
   margin: 3px;
-  font-size: 1.3em;
+  font-size: 20px;
   border-style: none solid solid none;
   border-width: medium thin medium thin;
   border-color: orange;
@@ -54,14 +109,16 @@ h3 {
   border-bottom: orange thin solid;
 }
 
-ul {
+ul.items {
   list-style-type: none;
   margin: 1em 0 1em 0;
   padding: 0;
   text-indent: 0;
 }
 
-li {
+ul.items > li {
+  float: left;
+  width: 20%;
   border-left-style: solid;
   padding-left: 10px;
   margin: 3px;
@@ -70,13 +127,8 @@ li {
   text-indent: 0;
 }
 
-ul.items > li {
-  float: left;
-  width: 20%;
-}
-
-ul.items:after {
-  clear: left;
+ul.items + * {
+  clear: both;
 }
 
 dl.recipes > dt {
